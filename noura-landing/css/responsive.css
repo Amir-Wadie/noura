@@ -1,0 +1,101 @@
+/* =====================================================================
+   NOURA SHEHTA — LANDING PAGE
+   Responsive breakpoints (desktop-first: base styles are desktop,
+   these queries adapt down to laptop → tablet → mobile → small mobile)
+===================================================================== */
+
+/* ============ LAPTOP (≤1080px) ============ */
+@media (max-width: 1080px) {
+  :root { --container-pad: 1.25rem; }
+
+  .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+  .footer__grid { grid-template-columns: 1.2fr 1fr 1fr; gap: var(--space-lg); }
+}
+
+/* ============ TABLET (≤960px) ============ */
+@media (max-width: 960px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--header-h) + var(--space-xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .hero__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "content" "video";
+    gap: var(--space-xl);
+  }
+  .hero__content { text-align: center; }
+  .hero__subtitle { margin-inline: auto; }
+  .hero__highlights { justify-content: center; }
+
+  .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
+
+  .stats__grid { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-xl); }
+
+  .package-grid.card-grid--3 { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
+
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; text-align: center; }
+  .footer__brand .logo { justify-content: center; }
+  .footer__tagline { margin-inline: auto; }
+
+  .journey__track {
+    flex-wrap: wrap;
+    row-gap: var(--space-2xl);
+  }
+  .journey__track::before { display: none; }
+  .journey__step { flex: 0 0 33%; }
+}
+
+/* ============ MOBILE (≤680px) ============ */
+@media (max-width: 680px) {
+  :root {
+    --space-4xl: 4.5rem;
+    --space-3xl: 3.5rem;
+    --space-2xl: 2.75rem;
+  }
+
+  body { padding-bottom: 82px; } /* clearance for the fixed mobile CTA bar */
+
+  .logo__img { width: 40px; height: 40px; }
+  .logo__text { font-size: 1rem; }
+  .header__inner .btn--sm { padding: .55rem 1rem; font-size: .82rem; }
+
+  .card-grid--4,
+  .card-grid--3,
+  .package-grid.card-grid--3 { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
+
+  .hero__title { text-align: center; }
+  .hero__highlights { flex-direction: column; align-items: center; }
+  .hero__actions { text-align: center; }
+
+  .stats__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-lg) var(--space-sm); }
+  .stat__medallion { width: 86px; height: 86px; }
+  .stat__value { font-size: 1.35rem; }
+
+  .journey__step { flex: 0 0 100%; }
+
+  .countdown { gap: .5rem; }
+  .countdown__unit { min-width: 52px; }
+  .countdown__sep { padding-bottom: 1.4rem; font-size: 1.2rem; }
+
+  .footer__grid { grid-template-columns: 1fr; text-align: center; }
+  .footer__col { display: flex; flex-direction: column; align-items: center; }
+
+  /* Swap the floating button for the full-width sticky bar */
+  .whatsapp-float { display: none; }
+  .mobile-cta-bar { display: flex; }
+}
+
+/* ============ SMALL MOBILE (≤420px) ============ */
+@media (max-width: 420px) {
+  :root { --container-pad: 1rem; }
+
+  .hero__title { font-size: 2rem; }
+  .package-card__price { font-size: 2.1rem; }
+  .countdown__value { font-size: 1.5rem; padding: .3rem .2rem; }
+  .countdown__label { font-size: .68rem; }
+  .btn--lg { padding: 1rem 1.8rem; font-size: 1rem; }
+  .btn--xl { padding: 1.1rem 2.2rem; font-size: 1.05rem; }
+}
