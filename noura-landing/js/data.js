@@ -23,7 +23,8 @@ const SITE_CONFIG = {
   // hero, floating button, footer and final CTA. Package messages are
   // used by their matching package card.
   messages: {
-    default:  "السلام عليكم أرغب في القيام باختبار تحديد المستوى",
+    default:  "السلام عليكم، أريد الاستفسار عن دورات دكتور نورا لتعلم الإنجليزي",
+    test: "السلام عليكم أرغب في القيام باختبار تحديد المستوى",
     package1: "السلام عليكم، أريد معرفة تفاصيل باقة الشهر الواحد.",
     package2: "السلام عليكم، أريد معرفة تفاصيل باقة الثلاثة أشهر.",
     package3: "السلام عليكم، أريد معرفة تفاصيل باقة الستة أشهر."
