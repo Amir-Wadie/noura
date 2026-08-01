@@ -22,10 +22,18 @@
   }
   .hero__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "content" "video";
-    gap: var(--space-xl);
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "video"
+      "highlights"
+      "actions";
+    row-gap: 0;
   }
-  .hero__content { text-align: center; }
+  .hero__media { margin-top: var(--space-lg); }
+  .hero__title,
+  .hero__subtitle,
+  .hero__actions { text-align: center; }
   .hero__subtitle { margin-inline: auto; }
   .hero__highlights { justify-content: center; }
 
@@ -71,8 +79,9 @@
   .hero__actions { text-align: center; }
 
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-lg) var(--space-sm); }
-  .stat__medallion { width: 86px; height: 86px; }
+  .stat__medallion { width: 86px; height: 86px; overflow: hidden; }
   .stat__value { font-size: 1.35rem; }
+  .stat__value--text { font-size: .72rem; letter-spacing: 0; }
 
   .journey__step { flex: 0 0 100%; }
 

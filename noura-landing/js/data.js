@@ -23,7 +23,7 @@ const SITE_CONFIG = {
   // hero, floating button, footer and final CTA. Package messages are
   // used by their matching package card.
   messages: {
-    default:  "السلام عليكم، أريد الاستفسار عن دورات ميس نورا لتعلم الإنجليزية.",
+    default:  "السلام عليكم، أريد الاستفسار عن دورات دكتور نورا لتعلم الإنجليزية.",
     package1: "السلام عليكم، أريد معرفة تفاصيل باقة الشهر الواحد.",
     package2: "السلام عليكم، أريد معرفة تفاصيل باقة الثلاثة أشهر.",
     package3: "السلام عليكم، أريد معرفة تفاصيل باقة الستة أشهر."
@@ -78,7 +78,7 @@ const testimonials = [
   },
   {
     name: "سارة عبد الله",
-    text: "كنت خايفة أتكلم قدام حد، ودلوقتي بقيت واثقة في نفسي جداً. ميس نورا صبورة ومتابعتها حقيقية مش شكلية.",
+    text: "كنت خايفة أتكلم قدام حد، ودلوقتي بقيت واثقة في نفسي جداً. دكتور نورا صبورة ومتابعتها حقيقية مش شكلية.",
     rating: 5,
     avatar: ""
   },
@@ -128,9 +128,9 @@ const testimonials = [
    politely explain the video isn't available yet if tapped.
 --------------------------------------------------------------------- */
 const shortVideos = [
-  { title: "تجربة طلاب ميس نورا",         thumbnail: "", video: "https://youtube.com/shorts/v32yU8vFNpY" },
-  { title: "نموذج يدعو للفخر",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
-  { title: "امنح طفلك فرصة التميز",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
-  { title: "طلاقة طلاب ميس نورا",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
-  { title: "ريم بتحكي تجربتها مع ميس نورا",  thumbnail: "", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
+  { title: "تجربة طلاب دكتور نورا",         thumbnail: "assets/images/First.png", video: "https://youtube.com/shorts/v32yU8vFNpY" },
+  { title: "نموذج يدعو للفخر",   thumbnail: "assets/images/sec.png", video: "https://youtube.com/shorts/peSIfzU9n-M" },
+  { title: "امنح طفلك فرصة التميز",          thumbnail: "assets/images/th.png", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
+  { title: "طلاقة طلاب دكتور نورا",        thumbnail: "assets/images/fo.png", video: "https://youtube.com/shorts/2rA1oBveFOI" },
+  { title: "ريم بتحكي تجربتها مع دكتور نورا",  thumbnail: "assets/images/fi.png", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
 ];

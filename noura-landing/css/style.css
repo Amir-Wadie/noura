@@ -315,11 +315,19 @@ button:focus-visible,
   z-index: 1;
   display: grid;
   grid-template-columns: 1.05fr .95fr;
-  grid-template-areas: "content video";
-  gap: var(--space-2xl);
+  grid-template-areas:
+    "title      video"
+    "subtitle   video"
+    "highlights video"
+    "actions    video";
+  column-gap: var(--space-2xl);
+  row-gap: 0;
   align-items: center;
 }
-.hero__content { grid-area: content; }
+.hero__title      { grid-area: title; }
+.hero__subtitle   { grid-area: subtitle; }
+.hero__highlights { grid-area: highlights; }
+.hero__actions    { grid-area: actions; }
 .hero__media { grid-area: video; }
 
 .hero__title {
@@ -355,7 +363,9 @@ button:focus-visible,
 .hero__highlight-icon { width: 16px; height: 16px; color: var(--gilt-light); flex-shrink: 0; }
 .hero__highlight-icon svg { width: 100%; height: 100%; }
 
-.hero__actions { margin-top: var(--space-lg); }
+/* No top margin here: .hero__highlights already carries the
+   equivalent bottom margin, and hero__grid's rows no longer
+   collapse margins the way normal block flow would. */
 .hero__cta-note { margin-top: var(--space-sm); font-size: .85rem; color: var(--mist); }
 
 /* Video frame (hero + shorts share this component) */
@@ -376,9 +386,9 @@ button:focus-visible,
   transition: transform var(--dur-slow) var(--ease-premium);
 }
 .media-frame:hover .media-frame__placeholder { transform: scale(1.04); }
-.media-frame__placeholder--1 { background: linear-gradient(135deg, var(--ink-navy-3), var(--claret-deep)); }
-.media-frame__placeholder--2 { background: linear-gradient(135deg, var(--ink-navy-3), var(--gilt-deep)); }
-.media-frame__placeholder--3 { background: linear-gradient(135deg, var(--claret-deep), var(--ink-navy-3)); }
+/* Gradient placeholder removed per client request — the placeholder
+   div is now transparent and shows the .media-frame's own flat
+   background (var(--ink-navy-2)) until a thumbnail/video loads in. */
 .media-frame__seal { opacity: .5; filter: grayscale(.25); width: 88px; }
 .media-frame__seal img { width: 100%; border-radius: 50%; }
 
@@ -401,7 +411,8 @@ button:focus-visible,
 .play-btn__icon { width: 28px; height: 28px; margin-inline-start: 4px; }
 .media-frame:hover .play-btn { transform: scale(1.08); }
 .media-frame.is-playing .media-frame__placeholder,
-.media-frame.is-playing .play-btn { display: none; }
+.media-frame.is-playing .play-btn,
+.media-frame.is-playing .video-card__title { display: none; }
 .media-frame video { width: 100%; height: 100%; object-fit: cover; }
 .media-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
 .media-frame.has-error .media-frame__placeholder { display: flex; }
@@ -525,7 +536,7 @@ button:focus-visible,
   display: flex;
   gap: var(--space-md);
   width: max-content;
-  padding-inline: var(--container-pad);
+  padding-inline: clamp(1.5rem, 4vw, 2rem);
 }
 
 /* Testimonial card */
@@ -574,7 +585,7 @@ button:focus-visible,
 .video-card {
   scroll-snap-align: start;
   flex: 0 0 auto;
-  width: min(220px, 58vw);
+  width: min(260px, 62vw);
   aspect-ratio: 9 / 16;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -586,6 +597,21 @@ button:focus-visible,
 }
 .video-card .media-frame__placeholder { border-radius: 0; }
 .media-frame__thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Non-autoplay YouTube embed used as a live thumbnail preview.
+   pointer-events: none lets every click fall through to the card's
+   own .video-trigger handler, which then swaps in the autoplay embed. */
+.yt-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  pointer-events: none;
+  background: var(--ink-navy-2);
+}
+
 .video-card__title {
   position: absolute; inset-inline: 0; bottom: 0;
   padding: var(--space-lg) var(--space-sm) var(--space-sm);

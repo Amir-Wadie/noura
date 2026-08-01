@@ -82,27 +82,18 @@
     });
   }
 
-  // Loads the first URL that actually succeeds into `el`, falling
-  // through to the next candidate on error (e.g. a just-uploaded
-  // YouTube video whose hqdefault.jpg isn't generated yet falls back
-  // to mqdefault.jpg). If every candidate fails, the themed gradient
-  // placeholder already in `el` is simply left alone.
-  function loadThumbInto(el, candidates) {
-    var i = 0;
-    function tryNext() {
-      if (i >= candidates.length) return;
-      var img = new Image();
-      img.className = 'media-frame__thumb-img';
-      img.alt = '';
-      img.loading = 'lazy';
-      img.addEventListener('load', function () {
-        el.innerHTML = '';
-        el.appendChild(img);
-      });
-      img.addEventListener('error', function () { i += 1; tryNext(); });
-      img.src = candidates[i];
-    }
-    tryNext();
+  // Loads a local thumbnail image into `el`.
+  // YouTube video previews are now handled via .yt-preview iframes
+  // so this function is only called for explicit local thumbnail paths.
+  function loadThumbInto(el, src) {
+    var img = new Image();
+    img.className = 'media-frame__thumb-img';
+    img.alt = '';
+    img.addEventListener('load', function () {
+      el.innerHTML = '';
+      el.appendChild(img);
+    });
+    img.src = src;
   }
 
   function renderShorts() {
@@ -112,14 +103,32 @@
     track.innerHTML = shortVideos.map(function (v, i) {
       var variant = (i % 3) + 1;
       var youtubeId = getYouTubeId(v.video);
-      // A manually-supplied thumbnail always wins. Otherwise, if the
-      // clip is a YouTube link, mark it for the fallback-chain loader below.
+
+      // For YouTube clips with no local thumbnail: embed a non-autoplay
+      // iframe so YouTube itself paints its real thumbnail — guaranteed
+      // to work for every video/Short without any image CDN requests.
+      // pointer-events: none lets clicks fall through to the card's own
+      // click handler (which then swaps in the autoplay embed).
+      var innerContent = '';
+      if (!v.thumbnail && youtubeId) {
+        innerContent =
+          '<iframe class="yt-preview" ' +
+            'src="https://www.youtube-nocookie.com/embed/' + escapeAttr(youtubeId) +
+                 '?autoplay=0&rel=0&modestbranding=1&controls=0&playsinline=1" ' +
+            'frameborder="0" loading="lazy" tabindex="-1" aria-hidden="true" ' +
+            'allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+            'allowfullscreen>' +
+          '</iframe>';
+      }
+
       var thumbAttr = v.thumbnail ? ' data-thumb="' + escapeAttr(v.thumbnail) + '"' : '';
-      var ytAttr = (!v.thumbnail && youtubeId) ? ' data-yt-id="' + escapeAttr(youtubeId) + '"' : '';
+
       return (
         '<div class="video-card media-frame video-trigger" role="listitem" ' +
              'data-video="' + escapeAttr(v.video) + '" data-video-title="' + escapeAttr(v.title) + '">' +
-          '<div class="media-frame__placeholder media-frame__placeholder--' + variant + '"' + thumbAttr + ytAttr + '></div>' +
+          '<div class="media-frame__placeholder media-frame__placeholder--' + variant + '"' + thumbAttr + '>' +
+            innerContent +
+          '</div>' +
           '<button type="button" class="play-btn" aria-label="' + 'تشغيل: ' + escapeAttr(v.title) + '">' +
             '<span class="play-btn__ring"></span>' +
             '<svg class="play-btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M9 6.5v11l9-5.5-9-5.5z"/></svg>' +
@@ -129,18 +138,10 @@
       );
     }).join('');
 
-    // Upgrade gradient placeholders to real thumbnails where available.
+    // Load local thumbnail images (only for cards that have a data-thumb path).
     track.querySelectorAll('.media-frame__placeholder[data-thumb]').forEach(function (el) {
       var src = el.getAttribute('data-thumb');
-      if (src) loadThumbInto(el, [src]);
-    });
-    track.querySelectorAll('.media-frame__placeholder[data-yt-id]').forEach(function (el) {
-      var id = el.getAttribute('data-yt-id');
-      if (!id) return;
-      loadThumbInto(el, [
-        'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg',
-        'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg'
-      ]);
+      if (src) loadThumbInto(el, src);
     });
   }
 

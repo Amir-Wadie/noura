@@ -93,7 +93,9 @@
   // to enforce "only one clip plays at a time" across both media types.
   function stopFrame(frame) {
     if (!frame) return;
-    var media = frame.querySelector('video, iframe');
+    // Only remove the active playback media — never the .yt-preview
+    // iframe that lives inside the placeholder and acts as thumbnail.
+    var media = frame.querySelector('video, iframe:not(.yt-preview)');
     if (media) media.remove();
     frame.classList.remove('is-playing');
   }
@@ -106,8 +108,10 @@
       stopFrame(currentlyPlayingFrame);
     }
 
-    // Clear any previous attempt on this frame so retries never stack duplicate nodes
-    var oldMedia = frame.querySelector('video, iframe');
+    // Clear any previous playback attempt on this frame.
+    // Exclude .yt-preview so the thumbnail iframe inside the
+    // placeholder is preserved and reappears when playback stops.
+    var oldMedia = frame.querySelector('video, iframe:not(.yt-preview)');
     if (oldMedia) oldMedia.remove();
     var oldError = frame.querySelector('.media-frame__error-msg');
     if (oldError) oldError.remove();
@@ -118,7 +122,7 @@
     if (youtubeId) {
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?autoplay=1&playsinline=1&rel=0';
-      iframe.title = frame.dataset.videoTitle || 'فيديو ميس نورا';
+      iframe.title = frame.dataset.videoTitle || 'فيديو دكتور نورا';
       iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
       iframe.setAttribute('allowfullscreen', '');
       iframe.setAttribute('frameborder', '0');
@@ -159,27 +163,18 @@
     video.focus();
   }
 
-  // Loads the first URL that actually succeeds into `el`, falling
-  // through to the next candidate on error (e.g. a just-uploaded
-  // YouTube video whose top thumbnail size isn't generated yet falls
-  // back to a smaller one). If every candidate fails, whatever was
-  // already in `el` (the gradient + logo placeholder) is left alone.
-  function loadThumbInto(el, candidates) {
-    var i = 0;
-    function tryNext() {
-      if (i >= candidates.length) return;
-      var img = new Image();
-      img.className = 'media-frame__thumb-img';
-      img.alt = '';
-      img.loading = 'lazy';
-      img.addEventListener('load', function () {
-        el.innerHTML = '';
-        el.appendChild(img);
-      });
-      img.addEventListener('error', function () { i += 1; tryNext(); });
-      img.src = candidates[i];
-    }
-    tryNext();
+  // Loads a local thumbnail image into `el`.
+  // Used only for video cards that have an explicit `thumbnail` path
+  // in data.js — YouTube previews are now handled via .yt-preview iframes.
+  function loadThumbInto(el, src) {
+    var img = new Image();
+    img.className = 'media-frame__thumb-img';
+    img.alt = '';
+    img.addEventListener('load', function () {
+      el.innerHTML = '';
+      el.appendChild(img);
+    });
+    img.src = src;
   }
 
   function initVideoTriggers() {
@@ -187,19 +182,28 @@
     var heroFrame = document.getElementById('heroVideoFrame');
     if (heroFrame && typeof heroVideo !== 'undefined') {
       heroFrame.dataset.video = heroVideo;
-      heroFrame.dataset.videoTitle = 'الفيديو التعريفي لميس نورا';
+      heroFrame.dataset.videoTitle = 'الفيديو التعريفي لدكتور نورا';
 
-      // If it's a YouTube link, swap the gradient + logo placeholder
-      // for YouTube's own preview frame of that video.
+      // Inject a non-autoplay YouTube iframe as the hero thumbnail —
+      // same guaranteed approach used for the shorts cards.
       var heroYoutubeId = getYouTubeId(heroVideo);
       if (heroYoutubeId) {
         var heroPlaceholder = heroFrame.querySelector('.media-frame__placeholder');
         if (heroPlaceholder) {
-          loadThumbInto(heroPlaceholder, [
-            'https://i.ytimg.com/vi/' + heroYoutubeId + '/maxresdefault.jpg',
-            'https://i.ytimg.com/vi/' + heroYoutubeId + '/hqdefault.jpg',
-            'https://i.ytimg.com/vi/' + heroYoutubeId + '/mqdefault.jpg'
-          ]);
+          var previewIframe = document.createElement('iframe');
+          previewIframe.className = 'yt-preview';
+          previewIframe.src =
+            'https://www.youtube-nocookie.com/embed/' + heroYoutubeId +
+            '?autoplay=0&rel=0&modestbranding=1&controls=0&playsinline=1';
+          previewIframe.setAttribute('frameborder', '0');
+          previewIframe.setAttribute('loading', 'lazy');
+          previewIframe.setAttribute('tabindex', '-1');
+          previewIframe.setAttribute('aria-hidden', 'true');
+          previewIframe.setAttribute('allow',
+            'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          previewIframe.setAttribute('allowfullscreen', '');
+          heroPlaceholder.innerHTML = '';
+          heroPlaceholder.appendChild(previewIframe);
         }
       }
     }
