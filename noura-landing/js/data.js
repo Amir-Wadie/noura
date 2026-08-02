@@ -129,9 +129,9 @@ const testimonials = [
    politely explain the video isn't available yet if tapped.
 --------------------------------------------------------------------- */
 const shortVideos = [
-  { title: "تجربة طلاب دكتور نورا",         thumbnail: "assets/images/First.png", video: "https://youtube.com/shorts/v32yU8vFNpY" },
-  { title: "نموذج يدعو للفخر",   thumbnail: "assets/images/sec.png", video: "https://youtube.com/shorts/peSIfzU9n-M" },
-  { title: "امنح طفلك فرصة التميز",          thumbnail: "assets/images/th.png", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
-  { title: "طلاقة طلاب دكتور نورا",        thumbnail: "assets/images/fo.png", video: "https://youtube.com/shorts/2rA1oBveFOI" },
-  { title: "ريم بتحكي تجربتها مع دكتور نورا",  thumbnail: "assets/images/fi.png", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
+  { title: "تجربة طلاب دكتور نورا",         thumbnail: "", video: "https://youtube.com/shorts/v32yU8vFNpY" },
+  { title: "نموذج يدعو للفخر",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
+  { title: "امنح طفلك فرصة التميز",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
+  { title: "طلاقة طلاب دكتور نورا",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
+  { title: "ريم بتحكي تجربتها مع دكتور نورا",  thumbnail: "", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
 ];
