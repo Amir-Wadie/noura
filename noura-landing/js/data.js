@@ -130,8 +130,8 @@ const testimonials = [
 --------------------------------------------------------------------- */
 const shortVideos = [
   { title: "",         thumbnail: "", video: "https://youtube.com/shorts/BLRTeI6MvRo" },
-  { title: "نموذج يدعو للفخر",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
-  { title: "امنح طفلك فرصة التميز",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
-  { title: "طلاقة طلاب دكتور نورا",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
-  { title: "ريم بتحكي تجربتها مع دكتور نورا",  thumbnail: "", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
+  { title: "",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
+  { title: "",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
+  { title: "",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
+  { title: "",  thumbnail: "", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
 ];
