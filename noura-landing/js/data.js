@@ -129,7 +129,7 @@ const testimonials = [
    politely explain the video isn't available yet if tapped.
 --------------------------------------------------------------------- */
 const shortVideos = [
-  { title: "تجربة طلاب دكتور نورا",         thumbnail: "", video: "https://youtube.com/shorts/v32yU8vFNpY" },
+  { title: "تجربة طلاب دكتور نورا",         thumbnail: "", video: "https://youtube.com/shorts/lCTHIF9CHjU" },
   { title: "نموذج يدعو للفخر",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
   { title: "امنح طفلك فرصة التميز",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
   { title: "طلاقة طلاب دكتور نورا",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
