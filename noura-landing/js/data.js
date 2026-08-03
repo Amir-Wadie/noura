@@ -132,7 +132,7 @@ const shortVideos = [
      { title: "",         thumbnail: "", video: "https://youtube.com/shorts/9b3sT5Ym5Qs" },
   { title: "",         thumbnail: "", video: "https://youtube.com/shorts/BLRTeI6MvRo" },
   { title: "",   thumbnail: "", video: "https://youtube.com/shorts/peSIfzU9n-M" },
-  { title: "",          thumbnail: "", video: "https://youtube.com/shorts/BRyHGTFC2sw" },
+  { title: "",          thumbnail: "", video: "https://youtube.com/shorts/nAVmOxkqR5I" },
   { title: "",        thumbnail: "", video: "https://youtube.com/shorts/2rA1oBveFOI" },
   { title: "",  thumbnail: "", video: "https://youtube.com/shorts/ZRBD-EESXto?si=jJ5-kQVQuOKtRg2_" }
 ];
